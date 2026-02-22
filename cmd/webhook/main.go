@@ -159,7 +159,7 @@ func startHealthServer(ctx context.Context, addr string, startedFn func() bool) 
 		if errors.Is(err, http.ErrServerClosed) {
 			return nil
 		}
-		return fmt.Errorf("Health server stopped: %w", err)
+		return fmt.Errorf("health server stopped: %w", err)
 	}
 	return nil
 }
