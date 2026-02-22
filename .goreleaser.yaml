@@ -1,0 +1,61 @@
+project_name: external-dns-pscloud-webhook
+
+before:
+  hooks:
+    - go mod download
+
+builds:
+  - id: external-dns-pscloud-webhook
+    main: ./cmd/webhook
+    binary: external-dns-pscloud-webhook
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+
+dockers:
+  - ids:
+      - external-dns-pscloud-webhook
+    image_templates:
+      - docker.io/{{ .Env.DOCKERHUB_USERNAME }}/{{ .ProjectName }}:{{ .Version }}-amd64
+    goos: linux
+    goarch: amd64
+    dockerfile: goreleaser.dockerfile
+    build_flag_templates:
+      - --platform=linux/amd64
+    use: buildx
+  - ids:
+      - external-dns-pscloud-webhook
+    image_templates:
+      - docker.io/{{ .Env.DOCKERHUB_USERNAME }}/{{ .ProjectName }}:{{ .Version }}-arm64
+    goos: linux
+    goarch: arm64
+    dockerfile: goreleaser.dockerfile
+    build_flag_templates:
+      - --platform=linux/arm64
+    use: buildx
+
+docker_manifests:
+  - name_template: docker.io/{{ .Env.DOCKERHUB_USERNAME }}/{{ .ProjectName }}:{{ .Version }}
+    image_templates:
+      - docker.io/{{ .Env.DOCKERHUB_USERNAME }}/{{ .ProjectName }}:{{ .Version }}-amd64
+      - docker.io/{{ .Env.DOCKERHUB_USERNAME }}/{{ .ProjectName }}:{{ .Version }}-arm64
+
+archives:
+  - formats:
+      - tar.gz
+
+checksum:
+  name_template: "{{ .ProjectName }}_checksums.txt"
+  algorithm: sha256
+
+release:
+  prerelease: auto
+  replace_existing_draft: true
