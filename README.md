@@ -15,7 +15,7 @@ provider:
   webhook:
     image:
       repository: supervillain3000/external-dns-pscloud-webhook
-      tag: 1.0.4
+      tag: v1.0.0
       pullPolicy: IfNotPresent
     env:
       - name: PS_DNS_TOKEN
