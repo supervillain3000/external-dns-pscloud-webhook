@@ -14,7 +14,7 @@ provider:
   name: webhook
   webhook:
     image:
-      repository: supervillain3000/external-dns-pscloud-webhook
+      repository: ghcr.io/supervillain3000/external-dns-pscloud-webhook
       tag: v1.0.0
       pullPolicy: IfNotPresent
     env:

@@ -24,7 +24,7 @@ dockers:
   - ids:
       - external-dns-pscloud-webhook
     image_templates:
-      - docker.io/{{ .Env.DOCKERHUB_USERNAME }}/{{ .ProjectName }}:{{ .Version }}-amd64
+      - ghcr.io/{{ .Env.IMAGE_OWNER }}/{{ .ProjectName }}:{{ .Version }}-amd64
     goos: linux
     goarch: amd64
     dockerfile: goreleaser.dockerfile
@@ -34,7 +34,7 @@ dockers:
   - ids:
       - external-dns-pscloud-webhook
     image_templates:
-      - docker.io/{{ .Env.DOCKERHUB_USERNAME }}/{{ .ProjectName }}:{{ .Version }}-arm64
+      - ghcr.io/{{ .Env.IMAGE_OWNER }}/{{ .ProjectName }}:{{ .Version }}-arm64
     goos: linux
     goarch: arm64
     dockerfile: goreleaser.dockerfile
@@ -43,10 +43,10 @@ dockers:
     use: buildx
 
 docker_manifests:
-  - name_template: docker.io/{{ .Env.DOCKERHUB_USERNAME }}/{{ .ProjectName }}:{{ .Version }}
+  - name_template: ghcr.io/{{ .Env.IMAGE_OWNER }}/{{ .ProjectName }}:{{ .Version }}
     image_templates:
-      - docker.io/{{ .Env.DOCKERHUB_USERNAME }}/{{ .ProjectName }}:{{ .Version }}-amd64
-      - docker.io/{{ .Env.DOCKERHUB_USERNAME }}/{{ .ProjectName }}:{{ .Version }}-arm64
+      - ghcr.io/{{ .Env.IMAGE_OWNER }}/{{ .ProjectName }}:{{ .Version }}-amd64
+      - ghcr.io/{{ .Env.IMAGE_OWNER }}/{{ .ProjectName }}:{{ .Version }}-arm64
 
 archives:
   - formats:
